@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ValoraStgo — Radar Inmobiliario Ñuñoa y Providencia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #FAF9F6;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F3F1EC;
+      --text-main: #1C1E21;
+      --text-muted: #5F6368;
+      --border: #E5E2DC;
+      --accent-dark: #1E293B;
+      --accent-emerald: #1B4D3E;
+      --accent-emerald-bg: #EBF5F0;
+      --accent-amber: #8A5A00;
+      --accent-amber-bg: #FDF6E7;
+      --accent-rose: #8C2D2D;
+      --accent-rose-bg: #FBEAEA;
+      --accent-blue: #1D4ED8;
+      --accent-blue-bg: #EFF6FF;
+      --shadow-sm: 0 2px 10px rgba(28, 30, 33, 0.04);
+      --shadow-md: 0 10px 30px rgba(28, 30, 33, 0.06);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand { display: flex; align-items: baseline; gap: 10px; }
+
+    .brand h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .brand span {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .market-ticker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    .ticker-item { display: flex; align-items: center; gap: 5px; }
+    .ticker-label { color: var(--text-muted); font-weight: 600; }
+    .ticker-value { font-weight: 700; color: var(--accent-emerald); font-variant-numeric: tabular-nums; }
+    .ticker-divider { color: var(--border); }
+
+    .ticker-status {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--accent-emerald-bg);
+      color: var(--accent-emerald);
+    }
+
+    .demo-pill {
+      font-size: 0.78rem;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 34px 20px 80px; }
+
+    .hero { text-align: center; max-width: 760px; margin: 0 auto 34px; }
+
+    .hero h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      color: var(--text-main);
+    }
+
+    .hero p { color: var(--text-muted); font-size: 0.98rem; }
+
+    .control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 36px;
+    }
+
+    .step-label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .top-selector-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 820px) {
+      .top-selector-row { grid-template-columns: 1fr; }
+    }
+
+    .segmented-control {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--bg-subtle);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .seg-btn {
+      border: none;
+      background: transparent;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .seg-btn.active {
+      background: var(--bg-card);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    select, input {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input:focus { border-color: var(--accent-dark); }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .optional-tag {
+      font-weight: 500;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .action-controls-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .currency-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 3px;
+    }
+
+    .curr-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .curr-btn.active {
+      background: var(--bg-card);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary {
+      background: var(--accent-dark);
+      color: #FFFFFF;
+      border: none;
+      padding: 13px 26px;
+      font-family: inherit;
+      font-size: 0.94rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.92; }
+
+    .btn-secondary {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 12px 18px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+    }
+
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .results-header h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .results-meta { font-size: 0.88rem; color: var(--text-muted); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
+      gap: 22px;
+      margin-bottom: 48px;
+    }
+
+    .prop-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .prop-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .comuna-tag {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .discount-badge {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 999px;
+    }
+
+    .discount-strong { background: var(--accent-emerald-bg); color: var(--accent-emerald); }
+    .discount-caution { background: var(--accent-rose-bg); color: var(--accent-rose); }
+    .discount-low { background: var(--bg-subtle); color: var(--text-muted); }
+
+    .prop-title { font-size: 1.06rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main); }
+    .prop-sector { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; }
+
+    .connectivity-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .conn-pill {
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 6px;
+      background: var(--accent-blue-bg);
+      color: var(--accent-blue);
+    }
+
+    .conn-pill.mall {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+
+    .conn-pill.patent {
+      background: var(--accent-emerald-bg);
+      color: var(--accent-emerald);
+    }
+
+    .conn-pill.patent-warn {
+      background: var(--accent-amber-bg);
+      color: var(--accent-amber);
+    }
+
+    .price-block {
+      background: var(--bg-page);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 13px;
+      margin-bottom: 12px;
+    }
+
+    .price-main { font-size: 1.32rem; font-weight: 700; color: var(--text-main); }
+
+    .price-ref { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .price-ref s { color: #8C9196; }
+
+    .metrics-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      font-size: 0.76rem;
+    }
+
+    .metric-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 5px;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .metric-chip.drop {
+      background: var(--accent-emerald-bg);
+      border-color: transparent;
+      color: var(--accent-emerald);
+    }
+
+    .specs-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .spec-chip {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    .reliability-box {
+      border-radius: var(--radius-md);
+      padding: 12px;
+      font-size: 0.81rem;
+      line-height: 1.45;
+    }
+
+    .rel-high { background: var(--accent-emerald-bg); color: var(--accent-emerald); border: 1px solid rgba(27, 77, 62, 0.15); }
+    .rel-medium { background: var(--accent-amber-bg); color: var(--accent-amber); border: 1px solid rgba(138, 90, 0, 0.15); }
+    .rel-low { background: var(--accent-rose-bg); color: var(--accent-rose); border: 1px solid rgba(140, 45, 45, 0.15); }
+
+    .rel-title { font-weight: 700; display: block; margin-bottom: 3px; }
+
+    .alert-note {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      opacity: 0.92;
+    }
+
+    .evaluator-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .evaluator-section h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .evaluator-section > p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+    }
+
+    .eval-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .eval-result {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      display: none;
+    }
+
+    .eval-result.visible { display: block; }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+    }
+
+    .criteria-legend {
+      margin-top: 34px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 26px;
+    }
+
+    .criteria-legend h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+
+    .criteria-grid strong { color: var(--text-main); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <h1>ValoraStgo</h1>
+      <span>Inteligencia Inmobiliaria</span>
+    </div>
+    <div class="header-right">
+      <div class="market-ticker" aria-label="Indicadores económicos de hoy">
+        <div class="ticker-item">
+          <span class="ticker-label">UF Hoy:</span>
+          <span class="ticker-value" id="ufHoyValor">Cargando...</span>
+        </div>
+        <span class="ticker-divider">|</span>
+        <div class="ticker-item">
+          <span class="ticker-label">Dólar:</span>
+          <span class="ticker-value" id="dolarHoyValor">Cargando...</span>
+        </div>
+        <span class="ticker-status" id="indicadorEstado">En vivo</span>
+      </div>
+      <div class="demo-pill">Ñuñoa &amp; Providencia</div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h2>Detecta oportunidades reales bajo valor de mercado</h2>
+    <p>Selecciona operación, tipo de inmueble y sus especificaciones para comparar automáticamente en <strong>Ñuñoa</strong> y <strong>Providencia</strong> cruzando mediana comparable en 600 m, conectividad, patentes, costo real y señales de riesgo.</p>
+  </section>
+
+  <!-- PANEL DE BÚSQUEDA Y ESPECIFICACIONES DINÁMICAS -->
+  <section class="control-panel">
+    <div class="top-selector-row">
+      <div>
+        <span class="step-label">1. Tipo de Operación</span>
+        <div class="segmented-control">
+          <button type="button" class="seg-btn active" id="btnCompra" onclick="setOperacion('compra')">Compra</button>
+          <button type="button" class="seg-btn" id="btnArriendo" onclick="setOperacion('arriendo')">Arriendo</button>
+        </div>
+      </div>
+
+      <div>
+        <span class="step-label">2. Tipo de Inmueble</span>
+        <select id="tipoInmueble" onchange="cambiarTipologia()">
+          <option value="departamento">Departamento</option>
+          <option value="casa">Casa</option>
+          <option value="bodega">Bodega</option>
+          <option value="sitio">Sitio Comercial</option>
+        </select>
+      </div>
+
+      <div>
+        <span class="step-label">3. Comunas de Alto Flujo</span>
+        <select id="filtroComuna" onchange="ejecutarBusqueda()">
+          <option value="todas">Ambas automáticamente (Ñuñoa y Providencia)</option>
+          <option value="Ñuñoa">Solo Ñuñoa</option>
+          <option value="Providencia">Solo Providencia</option>
+        </select>
+      </div>
+    </div>
+
+    <span class="step-label" id="tituloEspecificaciones">4. Especificaciones para Departamento</span>
+    <div class="specs-grid" id="contenedorEspecificaciones"></div>
+
+    <div class="action-bar">
+      <span style="font-size: 0.84rem; color: var(--text-muted);" id="hintMoneda">
+        Moneda activa: <strong>UF</strong> (mediana comparable sin valores atípicos).
+      </span>
+      <div class="action-controls-right">
+        <div class="currency-toggle" aria-label="Moneda de visualización">
+          <button type="button" class="curr-btn active" id="btnMonedaUF" onclick="setMonedaFiltro('UF')">UF</button>
+          <button type="button" class="curr-btn" id="btnMonedaCLP" onclick="setMonedaFiltro('CLP')">$ CLP</button>
+        </div>
+        <button type="button" class="btn-secondary" onclick="resetearFiltros()">Limpiar filtros</button>
+        <button type="button" class="btn-primary" onclick="ejecutarBusqueda()">Buscar oportunidades</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section>
+    <div class="results-header">
+      <div>
+        <h3>Oportunidades detectadas en Santiago</h3>
+        <p class="results-meta" id="resumenBusqueda">Mostrando propiedades ordenadas por diferencial y solidez estadística.</p>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="gridResultados"></div>
+  </section>
+
+  <!-- BLOQUE EXTRA: EVALÚA TU PROPIEDAD -->
+  <section class="evaluator-section">
+    <h3>Evalúa tu propiedad o una oferta</h3>
+    <p>Ingresa manualmente los datos de una propiedad en Ñuñoa o Providencia (incluyendo conectividad y estado) para saber si su precio está bajo mercado, justo o sobrevalorado.</p>
+
+    <div class="eval-grid">
+      <div class="field-group">
+        <label>Operación</label>
+        <select id="evalOperacion" onchange="actualizarPlaceholderEval()">
+          <option value="compra">Venta (UF)</option>
+          <option value="arriendo">Arriendo ($ CLP / mes)</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Comuna</label>
+        <select id="evalComuna">
+          <option value="Ñuñoa">Ñuñoa</option>
+          <option value="Providencia">Providencia</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Tipo de Inmueble</label>
+        <select id="evalTipo">
+          <option value="departamento">Departamento</option>
+          <option value="casa">Casa</option>
+          <option value="bodega">Bodega</option>
+          <option value="sitio">Sitio Comercial</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Superficie útil (m²)</label>
+        <input type="number" id="evalM2" placeholder="Ej: 75" min="10">
+      </div>
+      <div class="field-group">
+        <label>Dormitorios (si aplica)</label>
+        <input type="number" id="evalDorms" placeholder="Ej: 2" min="0">
+      </div>
+      <div class="field-group">
+        <label>Distancia al Metro</label>
+        <select id="evalMetro">
+          <option value="cerca">Menos de 500 m (≤ 6 min caminando)</option>
+          <option value="media" selected>500 m a 1.000 m (7–12 min)</option>
+          <option value="lejos">Más de 1.000 m</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Cercanía Mall / Comercio</label>
+        <select id="evalMall">
+          <option value="cerca">A pasos de Mall o eje comercial</option>
+          <option value="media" selected>Cercanía media (5–10 min)</option>
+          <option value="lejos">Zona residencial apartada</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label id="evalLabelPrecio">Precio pedido (UF)</label>
+        <input type="number" id="evalPrecio" placeholder="Ej: 4950" min="1">
+      </div>
+    </div>
+
+    <button type="button" class="btn-primary" onclick="evaluarPropiedadUsuario()">Calcular diferencial y confiabilidad</button>
+
+    <div class="eval-result" id="resultadoEvaluador"></div>
+  </section>
+
+  <!-- LEYENDA TRANSPARENTE DE CRITERIOS -->
+  <section class="criteria-legend">
+    <h4>Criterios del motor de valoración y confiabilidad</h4>
+    <div class="criteria-grid">
+      <div><strong>1. Microzona y Mediana sin Outliers:</strong> Compara contra la mediana de propiedades similares en un radio de 600 m, descartando avisos extremos o mal digitados.</div>
+      <div><strong>2. Conectividad Urbana:</strong> Pondera distancia real a estaciones de Metro y polos comerciales/malls, factores clave en plusvalía y liquidez en Ñuñoa y Providencia.</div>
+      <div><strong>3. Costo Real y Rentabilidad:</strong> En arriendo suma canon + gastos comunes; en compra cruza arriendo estimado del sector para calcular el Cap Rate bruto anual.</div>
+      <div><strong>4. Señales de Mercado y Alertas:</strong> Detecta rebajas recientes de precio (Price Drops), días publicados y palabras críticas (cesión de derechos, remodelación, sin estacionamiento o estado de patente).</div>
+    </div>
+  </section>
+</main>
+
+<script>
+  let operacionActual = 'compra';
+  let monedaFiltro = 'UF';
+  let valorUFActual = 38450;
+  let valorDolarActual = 975;
+
+  async function cargarIndicadoresEconomicos() {
+    const ufEl = document.getElementById('ufHoyValor');
+    const dolarEl = document.getElementById('dolarHoyValor');
+    const estadoEl = document.getElementById('indicadorEstado');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    try {
+      const resp = await fetch('https://mindicador.cl/api', { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (!resp.ok) throw new Error('Error de red');
+      const data = await resp.json();
+
+      if (data && data.uf && data.uf.valor) {
+        valorUFActual = Math.round(data.uf.valor);
+        ufEl.textContent = '$' + valorUFActual.toLocaleString('es-CL');
+      } else {
+        ufEl.textContent = '$' + valorUFActual.toLocaleString('es-CL');
+      }
+
+      if (data && data.dolar && data.dolar.valor) {
+        valorDolarActual = Math.round(data.dolar.valor);
+        dolarEl.textContent = '$' + valorDolarActual.toLocaleString('es-CL');
+      } else {
+        dolarEl.textContent = '$' + valorDolarActual.toLocaleString('es-CL');
+      }
+
+      if (estadoEl) {
+        estadoEl.textContent = 'En vivo';
+      }
+      ejecutarBusqueda();
+    } catch (e) {
+      clearTimeout(timeoutId);
+      ufEl.textContent = '$' + valorUFActual.toLocaleString('es-CL');
+      dolarEl.textContent = '$' + valorDolarActual.toLocaleString('es-CL');
+      if (estadoEl) {
+        estadoEl.textContent = 'Ref.';
+      }
+    }
+  }
+
+  const PROPIEDADES = [
+    // ================= COMPRA - DEPARTAMENTO =================
+    {
+      id: 1,
+      operacion: 'compra',
+      tipo: 'departamento',
+      comuna: 'Ñuñoa',
+      sector: 'Plaza Ñuñoa / Irarrázaval',
+      titulo: 'Depto 2D + 2B luminoso vista despejada',
+      precio: 4680,
+      referencia: 5500,
+      comparablesCount: 14,
+      diasPublicado: 38,
+      rebajaRecientePct: 9,
+      arriendoEstimadoCLP: 740000,
+      metroNombre: 'Metro Chile España (L3)',
+      metroDistM: 320,
+      metroMin: 4,
+      mallInfo: 'Mall Plaza Egaña a 6 min en metro',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 2, banos: 2, m2: 68, ggcc: 135000, estac: true, bodega: true }
+    },
+    {
+      id: 2,
+      operacion: 'compra',
+      tipo: 'departamento',
+      comuna: 'Providencia',
+      sector: 'Pedro de Valdivia / Pocuro',
+      titulo: 'Depto clásico 3D + 2B remodelado',
+      precio: 6970,
+      referencia: 8200,
+      comparablesCount: 11,
+      diasPublicado: 52,
+      rebajaRecientePct: 11,
+      arriendoEstimadoCLP: 1080000,
+      metroNombre: 'Metro Inés de Suárez (L6)',
+      metroDistM: 480,
+      metroMin: 6,
+      mallInfo: 'Costanera Center a 1,8 km',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 3, banos: 2, m2: 96, ggcc: 185000, estac: true, bodega: true }
+    },
+    {
+      id: 3,
+      operacion: 'compra',
+      tipo: 'departamento',
+      comuna: 'Ñuñoa',
+      sector: 'Barrio Italia / Dublé Almeyda',
+      titulo: 'Depto 1D + 1B ideal inversión',
+      precio: 3564,
+      referencia: 3600,
+      comparablesCount: 19,
+      diasPublicado: 14,
+      rebajaRecientePct: 0,
+      arriendoEstimadoCLP: 510000,
+      metroNombre: 'Metro Santa Isabel (L5)',
+      metroDistM: 550,
+      metroMin: 7,
+      mallInfo: 'Eje gastronómico Barrio Italia a 2 cuadras',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 1, banos: 1, m2: 44, ggcc: 88000, estac: false, bodega: true }
+    },
+    {
+      id: 4,
+      operacion: 'compra',
+      tipo: 'departamento',
+      comuna: 'Providencia',
+      sector: 'Los Leones / Lota',
+      titulo: 'Depto 2D + 2B orientación norte',
+      precio: 4800,
+      referencia: 8000,
+      comparablesCount: 3,
+      diasPublicado: 95,
+      rebajaRecientePct: 18,
+      arriendoEstimadoCLP: 920000,
+      metroNombre: 'Metro Los Leones (L1/L6)',
+      metroDistM: 290,
+      metroMin: 4,
+      mallInfo: 'Costanera Center y Mall Vivo Panorámico a 350 m',
+      cercaComercio: true,
+      alertaTexto: 'Posible cesión de derechos o remodelación profunda; validar escritura.',
+      specs: { dorms: 2, banos: 2, m2: 88, ggcc: 240000, estac: false, bodega: false }
+    },
+    {
+      id: 5,
+      operacion: 'compra',
+      tipo: 'departamento',
+      comuna: 'Ñuñoa',
+      sector: 'Metro Villa Frei / Simón Bolívar',
+      titulo: 'Depto familiar 3D + 2B con terraza amplia',
+      precio: 5490,
+      referencia: 6350,
+      comparablesCount: 12,
+      diasPublicado: 44,
+      rebajaRecientePct: 8,
+      arriendoEstimadoCLP: 860000,
+      metroNombre: 'Metro Villa Frei (L3)',
+      metroDistM: 250,
+      metroMin: 3,
+      mallInfo: 'Mall Plaza Egaña a 900 m (11 min caminando)',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 3, banos: 2, m2: 86, ggcc: 155000, estac: true, bodega: true }
+    },
+    {
+      id: 6,
+      operacion: 'compra',
+      tipo: 'departamento',
+      comuna: 'Providencia',
+      sector: 'Manuel Montt / Eliodoro Yáñez',
+      titulo: 'Depto 1D + 1B mariposa moderno',
+      precio: 3780,
+      referencia: 4450,
+      comparablesCount: 16,
+      diasPublicado: 31,
+      rebajaRecientePct: 7,
+      arriendoEstimadoCLP: 590000,
+      metroNombre: 'Metro Manuel Montt (L1)',
+      metroDistM: 380,
+      metroMin: 5,
+      mallInfo: 'Comercio y servicios Av. Providencia a 350 m',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 1, banos: 1, m2: 49, ggcc: 98000, estac: true, bodega: false }
+    },
+
+    // ================= COMPRA - CASA =================
+    {
+      id: 7,
+      operacion: 'compra',
+      tipo: 'casa',
+      comuna: 'Ñuñoa',
+      sector: 'Barrio Suárez Mujica',
+      titulo: 'Casa 4D + 3B estilo tradicional con jardín y piscina',
+      precio: 10800,
+      referencia: 13500,
+      comparablesCount: 8,
+      diasPublicado: 64,
+      rebajaRecientePct: 12,
+      arriendoEstimadoCLP: 1680000,
+      metroNombre: 'Metro Ñuñoa (L3/L6)',
+      metroDistM: 650,
+      metroMin: 8,
+      mallInfo: 'Portal Ñuñoa a 1,4 km',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 4, banos: 3, m2Construidos: 165, m2Terreno: 310, estac: 2, piscina: true }
+    },
+    {
+      id: 8,
+      operacion: 'compra',
+      tipo: 'casa',
+      comuna: 'Providencia',
+      sector: 'Las Lilas / Eliodoro Yáñez',
+      titulo: 'Casa 3D + 3B residencial tranquila',
+      precio: 14700,
+      referencia: 16300,
+      comparablesCount: 7,
+      diasPublicado: 45,
+      rebajaRecientePct: 6,
+      arriendoEstimadoCLP: 2150000,
+      metroNombre: 'Metro Cristóbal Colón (L4)',
+      metroDistM: 580,
+      metroMin: 7,
+      mallInfo: 'Mall Costanera Center a 1,9 km',
+      cercaComercio: false,
+      alertaTexto: '',
+      specs: { dorms: 3, banos: 3, m2Construidos: 180, m2Terreno: 280, estac: 2, piscina: false }
+    },
+    {
+      id: 9,
+      operacion: 'compra',
+      tipo: 'casa',
+      comuna: 'Ñuñoa',
+      sector: 'Parque Botánico / Campos de Deportes',
+      titulo: 'Casa remodelada 3D + 2B con quincho y piscina',
+      precio: 9450,
+      referencia: 11200,
+      comparablesCount: 9,
+      diasPublicado: 49,
+      rebajaRecientePct: 9,
+      arriendoEstimadoCLP: 1490000,
+      metroNombre: 'Metro Estadio Nacional (L6)',
+      metroDistM: 720,
+      metroMin: 9,
+      mallInfo: 'Portal Ñuñoa a 1,1 km',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 3, banos: 2, m2Construidos: 142, m2Terreno: 260, estac: 2, piscina: true }
+    },
+    {
+      id: 10,
+      operacion: 'compra',
+      tipo: 'casa',
+      comuna: 'Providencia',
+      sector: 'Pedro de Valdivia Norte',
+      titulo: 'Casa 4D + 4B patio amplio y piscina temperada',
+      precio: 18200,
+      referencia: 21800,
+      comparablesCount: 6,
+      diasPublicado: 58,
+      rebajaRecientePct: 10,
+      arriendoEstimadoCLP: 2650000,
+      metroNombre: 'Metro Pedro de Valdivia (L1)',
+      metroDistM: 1150,
+      metroMin: 14,
+      mallInfo: 'Costanera Center a 1,5 km',
+      cercaComercio: false,
+      alertaTexto: '',
+      specs: { dorms: 4, banos: 4, m2Construidos: 230, m2Terreno: 390, estac: 3, piscina: true }
+    },
+
+    // ================= COMPRA - BODEGA =================
+    {
+      id: 11,
+      operacion: 'compra',
+      tipo: 'bodega',
+      comuna: 'Ñuñoa',
+      sector: 'Eje Vicuña Mackenna / Rodrigo de Araya',
+      titulo: 'Bodega industrial / logística con patio maniobra',
+      precio: 7700,
+      referencia: 11000,
+      comparablesCount: 3,
+      diasPublicado: 82,
+      rebajaRecientePct: 15,
+      arriendoEstimadoCLP: 1450000,
+      metroNombre: 'Metro Rodrigo de Araya (L5)',
+      metroDistM: 410,
+      metroMin: 5,
+      mallInfo: 'Acceso directo eje Vicuña Mackenna',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'industrial',
+      patenteDetalle: 'Patente Industrial / Taller y almacenaje',
+      alertaTexto: 'Requiere revisión de recepción final y regularización eléctrica.',
+      specs: { m2: 240, altura: 6.5, camion: 'Sí (rampla)', trifasica: 'Sí' }
+    },
+    {
+      id: 12,
+      operacion: 'compra',
+      tipo: 'bodega',
+      comuna: 'Providencia',
+      sector: 'Santa Isabel / Condell',
+      titulo: 'Bodega urbana + showroom e-commerce',
+      precio: 6450,
+      referencia: 7600,
+      comparablesCount: 7,
+      diasPublicado: 41,
+      rebajaRecientePct: 8,
+      arriendoEstimadoCLP: 1120000,
+      metroNombre: 'Metro Santa Isabel (L5)',
+      metroDistM: 490,
+      metroMin: 6,
+      mallInfo: 'Eje comercial Barrio Italia a 400 m',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'comercial',
+      patenteDetalle: 'Patente Comercial y distribución',
+      alertaTexto: '',
+      specs: { m2: 145, altura: 4.8, camion: 'Sí (3/4)', trifasica: 'Sí' }
+    },
+    {
+      id: 13,
+      operacion: 'compra',
+      tipo: 'bodega',
+      comuna: 'Ñuñoa',
+      sector: 'Guillermo Mann / Marathon',
+      titulo: 'Galpón bodega con oficina y taller técnico',
+      precio: 8900,
+      referencia: 10500,
+      comparablesCount: 6,
+      diasPublicado: 37,
+      rebajaRecientePct: 9,
+      arriendoEstimadoCLP: 1560000,
+      metroNombre: 'Metro Ñuble (L5/L6)',
+      metroDistM: 680,
+      metroMin: 8,
+      mallInfo: 'Polos comerciales Vicuña Mackenna a 600 m',
+      cercaComercio: false,
+      patenteEstado: 'vigente',
+      patenteTipo: 'microempresa',
+      patenteDetalle: 'Patente Microempresa Familiar / Taller inofensivo',
+      alertaTexto: '',
+      specs: { m2: 210, altura: 5.8, camion: 'Sí (rampla)', trifasica: 'Sí' }
+    },
+
+    // ================= COMPRA - SITIO COMERCIAL =================
+    {
+      id: 14,
+      operacion: 'compra',
+      tipo: 'sitio',
+      comuna: 'Providencia',
+      sector: 'Av. Providencia / Manuel Montt',
+      titulo: 'Sitio comercial esquina alto flujo peatonal',
+      precio: 22100,
+      referencia: 26000,
+      comparablesCount: 6,
+      diasPublicado: 47,
+      rebajaRecientePct: 10,
+      arriendoEstimadoCLP: 3650000,
+      metroNombre: 'Metro Manuel Montt (L1)',
+      metroDistM: 120,
+      metroMin: 2,
+      mallInfo: 'Pleno eje comercial Av. Providencia',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'gastronomica',
+      patenteDetalle: 'Patente Gastronómica / Restaurante y Comercial',
+      alertaTexto: '',
+      specs: { m2: 320, frente: 14, zonificacion: 'Equipamiento / Comercial' }
+    },
+    {
+      id: 15,
+      operacion: 'compra',
+      tipo: 'sitio',
+      comuna: 'Ñuñoa',
+      sector: 'Av. Irarrázaval / Pedro de Valdivia',
+      titulo: 'Terreno comercial apto stripcenter o local',
+      precio: 16200,
+      referencia: 19200,
+      comparablesCount: 7,
+      diasPublicado: 53,
+      rebajaRecientePct: 9,
+      arriendoEstimadoCLP: 2680000,
+      metroNombre: 'Metro Ñuñoa (L3/L6)',
+      metroDistM: 190,
+      metroMin: 3,
+      mallInfo: 'Eje comercial Irarrázaval a pasos',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'comercial',
+      patenteDetalle: 'Patente Comercial / Stripcenter',
+      alertaTexto: '',
+      specs: { m2: 380, frente: 16, zonificacion: 'Mixto Comercial' }
+    },
+    {
+      id: 16,
+      operacion: 'compra',
+      tipo: 'sitio',
+      comuna: 'Providencia',
+      sector: 'Bellavista / Pío Nono',
+      titulo: 'Inmueble comercial esquina con patente alcoholes',
+      precio: 19500,
+      referencia: 23400,
+      comparablesCount: 6,
+      diasPublicado: 61,
+      rebajaRecientePct: 11,
+      arriendoEstimadoCLP: 3350000,
+      metroNombre: 'Metro Baquedano (L1/L5)',
+      metroDistM: 430,
+      metroMin: 5,
+      mallInfo: 'Polo gastronómico y nocturno Bellavista',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'alcoholes',
+      patenteDetalle: 'Patente de Alcoholes + Gastronómica vigente',
+      alertaTexto: '',
+      specs: { m2: 290, frente: 13, zonificacion: 'Comercial / Nocturno' }
+    },
+
+    // ================= ARRIENDO - DEPARTAMENTO =================
+    {
+      id: 17,
+      operacion: 'arriendo',
+      tipo: 'departamento',
+      comuna: 'Ñuñoa',
+      sector: 'Metro Ñuñoa / Pedro de Valdivia',
+      titulo: 'Depto 2D + 2B con estacionamiento y bodega',
+      precio: 630000,
+      referencia: 760000,
+      comparablesCount: 16,
+      diasPublicado: 29,
+      rebajaRecientePct: 10,
+      metroNombre: 'Metro Ñuñoa (L3/L6)',
+      metroDistM: 210,
+      metroMin: 3,
+      mallInfo: 'Portal Ñuñoa a 1,1 km',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 2, banos: 2, m2: 65, ggcc: 120000, estac: true, bodega: true }
+    },
+    {
+      id: 18,
+      operacion: 'arriendo',
+      tipo: 'departamento',
+      comuna: 'Providencia',
+      sector: 'Metro Tobalaba / El Bosque',
+      titulo: 'Depto ejecutivo 1D + 1B amoblado',
+      precio: 580000,
+      referencia: 685000,
+      comparablesCount: 12,
+      diasPublicado: 34,
+      rebajaRecientePct: 8,
+      metroNombre: 'Metro Tobalaba (L1/L4)',
+      metroDistM: 280,
+      metroMin: 3,
+      mallInfo: 'Mall Costanera Center a 300 m',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 1, banos: 1, m2: 46, ggcc: 95000, estac: true, bodega: true }
+    },
+    {
+      id: 19,
+      operacion: 'arriendo',
+      tipo: 'departamento',
+      comuna: 'Providencia',
+      sector: 'Bellavista / Salvador',
+      titulo: 'Depto amplio 3D + 2B piso alto',
+      precio: 600000,
+      referencia: 1000000,
+      comparablesCount: 2,
+      diasPublicado: 71,
+      rebajaRecientePct: 22,
+      metroNombre: 'Metro Salvador (L1)',
+      metroDistM: 390,
+      metroMin: 5,
+      mallInfo: 'Clínicas y comercio Salvador a 300 m',
+      cercaComercio: true,
+      alertaTexto: 'Gastos comunes elevados ($260.000) y edificio antiguo sin ascensor.',
+      specs: { dorms: 3, banos: 2, m2: 105, ggcc: 260000, estac: false, bodega: false }
+    },
+    {
+      id: 20,
+      operacion: 'arriendo',
+      tipo: 'departamento',
+      comuna: 'Ñuñoa',
+      sector: 'Parque Bustamante / Irarrázaval',
+      titulo: 'Depto 2D + 1B moderno con balcón',
+      precio: 590000,
+      referencia: 690000,
+      comparablesCount: 15,
+      diasPublicado: 24,
+      rebajaRecientePct: 7,
+      metroNombre: 'Metro Irarrázaval (L3/L5)',
+      metroDistM: 270,
+      metroMin: 3,
+      mallInfo: 'Supermercados y comercio Irarrázaval a 200 m',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 2, banos: 1, m2: 56, ggcc: 105000, estac: true, bodega: false }
+    },
+    {
+      id: 21,
+      operacion: 'arriendo',
+      tipo: 'departamento',
+      comuna: 'Providencia',
+      sector: 'Carlos Antúnez / Antonio Varas',
+      titulo: 'Depto 3D + 2B luminoso con 2 estacionamientos',
+      precio: 960000,
+      referencia: 1140000,
+      comparablesCount: 10,
+      diasPublicado: 36,
+      rebajaRecientePct: 9,
+      metroNombre: 'Metro Pedro de Valdivia (L1)',
+      metroDistM: 620,
+      metroMin: 8,
+      mallInfo: 'Eje comercial Providencia a 550 m',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 3, banos: 2, m2: 98, ggcc: 175000, estac: true, bodega: true }
+    },
+
+    // ================= ARRIENDO - CASA =================
+    {
+      id: 22,
+      operacion: 'arriendo',
+      tipo: 'casa',
+      comuna: 'Ñuñoa',
+      sector: 'Plaza Egaña / Ossa',
+      titulo: 'Casa 3D + 2B antejardín y piscina',
+      precio: 1260000,
+      referencia: 1480000,
+      comparablesCount: 9,
+      diasPublicado: 27,
+      rebajaRecientePct: 9,
+      metroNombre: 'Metro Plaza Egaña (L3/L4)',
+      metroDistM: 450,
+      metroMin: 6,
+      mallInfo: 'Mall Plaza Egaña a 450 m (6 min caminando)',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 3, banos: 2, m2Construidos: 135, m2Terreno: 240, estac: 2, piscina: true }
+    },
+    {
+      id: 23,
+      operacion: 'arriendo',
+      tipo: 'casa',
+      comuna: 'Providencia',
+      sector: 'Barrio Italia / Bilbao',
+      titulo: 'Casa 4D + 3B uso habitacional o consulta profesional',
+      precio: 1690000,
+      referencia: 1980000,
+      comparablesCount: 8,
+      diasPublicado: 33,
+      rebajaRecientePct: 8,
+      metroNombre: 'Metro Parque Bustamante (L5)',
+      metroDistM: 760,
+      metroMin: 9,
+      mallInfo: 'Comercio Barrio Italia a 300 m',
+      cercaComercio: true,
+      alertaTexto: '',
+      specs: { dorms: 4, banos: 3, m2Construidos: 175, m2Terreno: 290, estac: 2, piscina: false }
+    },
+    {
+      id: 24,
+      operacion: 'arriendo',
+      tipo: 'casa',
+      comuna: 'Ñuñoa',
+      sector: 'Simón Bolívar / Echeñique',
+      titulo: 'Casa familiar 4D + 3B patio amplio y piscina',
+      precio: 1520000,
+      referencia: 1790000,
+      comparablesCount: 7,
+      diasPublicado: 41,
+      rebajaRecientePct: 10,
+      metroNombre: 'Metro Simón Bolívar (L4)',
+      metroDistM: 540,
+      metroMin: 7,
+      mallInfo: 'Mall Plaza Egaña a 1,1 km',
+      cercaComercio: false,
+      alertaTexto: '',
+      specs: { dorms: 4, banos: 3, m2Construidos: 168, m2Terreno: 310, estac: 2, piscina: true }
+    },
+
+    // ================= ARRIENDO - BODEGA =================
+    {
+      id: 25,
+      operacion: 'arriendo',
+      tipo: 'bodega',
+      comuna: 'Providencia',
+      sector: 'Santa Isabel / Bustamante',
+      titulo: 'Bodega urbana + oficina administrativa',
+      precio: 1050000,
+      referencia: 1240000,
+      comparablesCount: 8,
+      diasPublicado: 41,
+      rebajaRecientePct: 7,
+      metroNombre: 'Metro Santa Isabel (L5)',
+      metroDistM: 360,
+      metroMin: 4,
+      mallInfo: 'Zona comercial Barrio Italia a 450 m',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'comercial',
+      patenteDetalle: 'Patente Comercial y bodegaje urbano',
+      alertaTexto: '',
+      specs: { m2: 140, altura: 4.5, camion: 'Sí (3/4)', trifasica: 'Sí' }
+    },
+    {
+      id: 26,
+      operacion: 'arriendo',
+      tipo: 'bodega',
+      comuna: 'Ñuñoa',
+      sector: 'Vicuña Mackenna / Guillermo Mann',
+      titulo: 'Galpón bodega + taller con corriente trifásica',
+      precio: 1380000,
+      referencia: 1650000,
+      comparablesCount: 7,
+      diasPublicado: 35,
+      rebajaRecientePct: 9,
+      metroNombre: 'Metro Ñuble (L5/L6)',
+      metroDistM: 490,
+      metroMin: 6,
+      mallInfo: 'Stripcenters Vicuña Mackenna a 400 m',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'industrial',
+      patenteDetalle: 'Patente Industrial / Taller técnico',
+      alertaTexto: '',
+      specs: { m2: 220, altura: 6.0, camion: 'Sí (rampla)', trifasica: 'Sí' }
+    },
+    {
+      id: 27,
+      operacion: 'arriendo',
+      tipo: 'bodega',
+      comuna: 'Ñuñoa',
+      sector: 'Av. Grecia / Campo de Deportes',
+      titulo: 'Bodega logística dark-store o microempresa',
+      precio: 940000,
+      referencia: 1110000,
+      comparablesCount: 6,
+      diasPublicado: 28,
+      rebajaRecientePct: 8,
+      metroNombre: 'Metro Estadio Nacional (L6)',
+      metroDistM: 820,
+      metroMin: 10,
+      mallInfo: 'Portal Ñuñoa a 850 m',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'microempresa',
+      patenteDetalle: 'Patente Microempresa / E-commerce',
+      alertaTexto: '',
+      specs: { m2: 130, altura: 4.2, camion: 'Sí (3/4)', trifasica: 'No' }
+    },
+
+    // ================= ARRIENDO - SITIO COMERCIAL =================
+    {
+      id: 28,
+      operacion: 'arriendo',
+      tipo: 'sitio',
+      comuna: 'Ñuñoa',
+      sector: 'Av. Irarrázaval / Pedro de Valdivia',
+      titulo: 'Sitio / Local comercial vitrina a calle principal',
+      precio: 1780000,
+      referencia: 2100000,
+      comparablesCount: 7,
+      diasPublicado: 35,
+      rebajaRecientePct: 8,
+      metroNombre: 'Metro Ñuñoa (L3/L6)',
+      metroDistM: 180,
+      metroMin: 2,
+      mallInfo: 'Eje comercial Irarrázaval en puerta',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'gastronomica',
+      patenteDetalle: 'Patente Gastronómica / Cafetería y Comercial',
+      alertaTexto: '',
+      specs: { m2: 190, frente: 11, zonificacion: 'Comercial Consolidado' }
+    },
+    {
+      id: 29,
+      operacion: 'arriendo',
+      tipo: 'sitio',
+      comuna: 'Providencia',
+      sector: 'Av. Nueva Providencia / Suecia',
+      titulo: 'Local / Sitio comercial apto clínica, oficina o estudio',
+      precio: 2350000,
+      referencia: 2790000,
+      comparablesCount: 8,
+      diasPublicado: 39,
+      rebajaRecientePct: 9,
+      metroNombre: 'Metro Los Leones (L1/L6)',
+      metroDistM: 210,
+      metroMin: 3,
+      mallInfo: 'Mall Vivo Panorámico y Costanera a 300 m',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'profesional',
+      patenteDetalle: 'Patente Profesional / Oficina y Centro Médico',
+      alertaTexto: '',
+      specs: { m2: 240, frente: 12, zonificacion: 'Comercial / Servicios' }
+    },
+    {
+      id: 30,
+      operacion: 'arriendo',
+      tipo: 'sitio',
+      comuna: 'Providencia',
+      sector: 'Orrego Luco / Andrés Bello',
+      titulo: 'Local terraza y patio con patente de alcoholes',
+      precio: 2890000,
+      referencia: 3450000,
+      comparablesCount: 6,
+      diasPublicado: 46,
+      rebajaRecientePct: 10,
+      metroNombre: 'Metro Pedro de Valdivia (L1)',
+      metroDistM: 240,
+      metroMin: 3,
+      mallInfo: 'Costanera Center a 650 m',
+      cercaComercio: true,
+      patenteEstado: 'vigente',
+      patenteTipo: 'alcoholes',
+      patenteDetalle: 'Patente de Alcoholes + Restaurante vigente',
+      alertaTexto: '',
+      specs: { m2: 260, frente: 14, zonificacion: 'Gastronómico / Nocturno' }
+    }
+  ];
+
+  const ESPECIFICACIONES_CONFIG = {
+    departamento: [
+      { id: 'f_dorms', label: 'Dormitorios mínimos', type: 'select', options: [
+        { val: '0', text: 'Cualquiera' },
+        { val: '1', text: '1+ dormitorio' },
+        { val: '2', text: '2+ dormitorios' },
+        { val: '3', text: '3+ dormitorios' }
+      ]},
+      { id: 'f_banos', label: 'Baños mínimos', type: 'select', options: [
+        { val: '0', text: 'Cualquiera' },
+        { val: '1', text: '1+ baño' },
+        { val: '2', text: '2+ baños' }
+      ]},
+      { id: 'f_m2', label: 'Superficie útil mínima (m²)', type: 'number', placeholder: 'Ej: 50' },
+      { id: 'f_precioMax', labelDynamic: true, type: 'number', placeholderDynamic: true },
+      { id: 'f_estac', label: 'Estacionamiento <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente (Con o sin)' },
+        { val: 'si', text: 'Solo con estacionamiento' }
+      ]},
+      { id: 'f_bodega', label: 'Bodega <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente (Con o sin)' },
+        { val: 'si', text: 'Solo con bodega' }
+      ]}
+    ],
+    casa: [
+      { id: 'f_dorms', label: 'Dormitorios mínimos', type: 'select', options: [
+        { val: '0', text: 'Cualquiera' },
+        { val: '3', text: '3+ dormitorios' },
+        { val: '4', text: '4+ dormitorios' }
+      ]},
+      { id: 'f_m2', label: 'Construidos mínimos (m²)', type: 'number', placeholder: 'Ej: 120' },
+      { id: 'f_terreno', label: 'Terreno mínimo (m²)', type: 'number', placeholder: 'Ej: 200' },
+      { id: 'f_precioMax', labelDynamic: true, type: 'number', placeholderDynamic: true },
+      { id: 'f_piscina', label: 'Piscina <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente (Con o sin)' },
+        { val: 'si', text: 'Solo con piscina' }
+      ]}
+    ],
+    bodega: [
+      { id: 'f_m2', label: 'Superficie almacenaje mín. (m²)', type: 'number', placeholder: 'Ej: 100' },
+      { id: 'f_altura', label: 'Altura libre mínima (m)', type: 'number', placeholder: 'Ej: 4.5' },
+      { id: 'f_precioMax', labelDynamic: true, type: 'number', placeholderDynamic: true },
+      { id: 'f_metroMax', label: 'Distancia al Metro <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: '99999', text: 'Indiferente (Cualquier distancia)' },
+        { val: '400', text: 'A pasos del Metro (≤ 400 m)' },
+        { val: '600', text: 'Cerca del Metro (≤ 600 m)' },
+        { val: '1000', text: 'Hasta 1 km del Metro' }
+      ]},
+      { id: 'f_mall', label: 'Cercanía Mall / Comercio <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente' },
+        { val: 'si', text: 'Cerca de Mall o eje comercial' }
+      ]},
+      { id: 'f_patente', label: 'Tipo de Patente <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente (Cualquier patente)' },
+        { val: 'cualquiera_vigente', text: 'Con cualquier patente habilitada' },
+        { val: 'comercial', text: 'Patente Comercial' },
+        { val: 'industrial', text: 'Patente Industrial / Taller' },
+        { val: 'microempresa', text: 'Patente Microempresa Familiar' },
+        { val: 'profesional', text: 'Patente Profesional / Oficina' }
+      ]}
+    ],
+    sitio: [
+      { id: 'f_m2', label: 'Superficie total mínima (m²)', type: 'number', placeholder: 'Ej: 180' },
+      { id: 'f_frente', label: 'Frente a calle mínimo (m)', type: 'number', placeholder: 'Ej: 10' },
+      { id: 'f_precioMax', labelDynamic: true, type: 'number', placeholderDynamic: true },
+      { id: 'f_metroMax', label: 'Distancia al Metro <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: '99999', text: 'Indiferente (Cualquier distancia)' },
+        { val: '400', text: 'A pasos del Metro (≤ 400 m)' },
+        { val: '600', text: 'Cerca del Metro (≤ 600 m)' },
+        { val: '1000', text: 'Hasta 1 km del Metro' }
+      ]},
+      { id: 'f_mall', label: 'Cercanía Mall / Comercio <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente' },
+        { val: 'si', text: 'Cerca de Mall o eje comercial' }
+      ]},
+      { id: 'f_patente', label: 'Tipo de Patente <span class="optional-tag">(Opcional)</span>', type: 'select', options: [
+        { val: 'indiferente', text: 'Indiferente (Cualquier patente)' },
+        { val: 'cualquiera_vigente', text: 'Con cualquier patente habilitada' },
+        { val: 'comercial', text: 'Patente Comercial' },
+        { val: 'gastronomica', text: 'Patente Gastronómica / Restaurante' },
+        { val: 'alcoholes', text: 'Patente de Alcoholes' },
+        { val: 'profesional', text: 'Patente Profesional / Oficina' },
+        { val: 'microempresa', text: 'Patente Microempresa Familiar' }
+      ]}
+    ]
+  };
+
+  function convertirPrecioParaMostrar(valorOriginal, operacionProp) {
+    if (operacionProp === 'compra') {
+      return monedaFiltro === 'UF' ? valorOriginal : Math.round(valorOriginal * valorUFActual);
+    } else {
+      return monedaFiltro === 'CLP' ? valorOriginal : Number((valorOriginal / valorUFActual).toFixed(1));
+    }
+  }
+
+  function formatearMontoSegunFiltro(valorOriginal, operacionProp) {
+    const val = convertirPrecioParaMostrar(valorOriginal, operacionProp);
+    if (monedaFiltro === 'UF') {
+      return `${val.toLocaleString('es-CL')} UF`;
+    } else {
+      return `$${val.toLocaleString('es-CL')}`;
+    }
+  }
+
+  function calcularDiferencialYConfiabilidad(prop) {
+    const diffPct = Math.round(((prop.referencia - prop.precio) / prop.referencia) * 100);
+    const n = prop.comparablesCount;
+    const tieneAlerta = Boolean(prop.alertaTexto);
+
+    let nivel = 'alta';
+    let etiqueta = 'Confiabilidad Alta';
+    let explicacion = `Respaldado por ${n} comparables en radio de 600 m (mediana sin outliers). Rebaja de ${diffPct}% sólida y consistente.`;
+
+    if (diffPct <= 3) {
+      nivel = 'baja';
+      etiqueta = 'Diferencial Mínimo (Sin ventaja clara)';
+      explicacion = `Solo ${diffPct}% bajo la mediana de ${n} comparables; entra dentro del margen habitual de negociación.`;
+    } else if (diffPct >= 30 || n < 4 || tieneAlerta) {
+      nivel = 'baja';
+      etiqueta = 'Baja Confiabilidad / Revisar con cautela';
+      explicacion = `Diferencial atípico de ${diffPct}% con solo ${n} comparables directos. Puede deberse a condiciones especiales o estado del inmueble.`;
+    } else if (n < 7 || diffPct >= 23) {
+      nivel = 'media';
+      etiqueta = 'Confiabilidad Media';
+      explicacion = `Muestra moderada (${n} comparables en microzona) con rebaja del ${diffPct}%. Conviene validar terminaciones y gastos asociados.`;
+    }
+
+    return { diffPct, nivel, etiqueta, explicacion };
+  }
+
+  function setOperacion(op) {
+    operacionActual = op;
+    monedaFiltro = op === 'compra' ? 'UF' : 'CLP';
+    document.getElementById('btnCompra').classList.toggle('active', op === 'compra');
+    document.getElementById('btnArriendo').classList.toggle('active', op === 'arriendo');
+    actualizarBotonesMoneda();
+    renderizarEspecificaciones();
+    ejecutarBusqueda();
+  }
+
+  function setMonedaFiltro(nuevaMoneda) {
+    if (monedaFiltro === nuevaMoneda) return;
+
+    const inputPrecio = document.getElementById('f_precioMax');
+    const valorPrevio = inputPrecio ? parseFloat(inputPrecio.value) : NaN;
+    let valorConvertido = '';
+
+    if (!isNaN(valorPrevio) && valorPrevio > 0) {
+      if (monedaFiltro === 'UF' && nuevaMoneda === 'CLP') {
+        valorConvertido = Math.round(valorPrevio * valorUFActual);
+      } else if (monedaFiltro === 'CLP' && nuevaMoneda === 'UF') {
+        valorConvertido = Number((valorPrevio / valorUFActual).toFixed(1));
+      }
+    }
+
+    monedaFiltro = nuevaMoneda;
+    actualizarBotonesMoneda();
+    renderizarEspecificaciones();
+
+    const nuevoInputPrecio = document.getElementById('f_precioMax');
+    if (nuevoInputPrecio && valorConvertido !== '') {
+      nuevoInputPrecio.value = valorConvertido;
+    }
+
+    ejecutarBusqueda();
+  }
+
+  function actualizarBotonesMoneda() {
+    document.getElementById('btnMonedaUF').classList.toggle('active', monedaFiltro === 'UF');
+    document.getElementById('btnMonedaCLP').classList.toggle('active', monedaFiltro === 'CLP');
+    const monedaTexto = monedaFiltro === 'UF' ? 'UF' : '$ CLP';
+    document.getElementById('hintMoneda').innerHTML =
+      `Moneda activa: <strong>${monedaTexto}</strong> (1 UF = $${valorUFActual.toLocaleString('es-CL')}).`;
+  }
+
+  function cambiarTipologia() {
+    renderizarEspecificaciones();
+    ejecutarBusqueda();
+  }
+
+  function renderizarEspecificaciones() {
+    const tipo = document.getElementById('tipoInmueble').value;
+    const nombresTipo = {
+      departamento: 'Departamento',
+      casa: 'Casa',
+      bodega: 'Bodega',
+      sitio: 'Sitio Comercial'
+    };
+    document.getElementById('tituloEspecificaciones').textContent = `4. Especificaciones para ${nombresTipo[tipo]}`;
+
+    const campos = ESPECIFICACIONES_CONFIG[tipo];
+    const contenedor = document.getElementById('contenedorEspecificaciones');
+    contenedor.innerHTML = '';
+
+    campos.forEach(campo => {
+      const div = document.createElement('div');
+      div.className = 'field-group';
+
+      let labelText = campo.label;
+      let placeholderText = campo.placeholder || '';
+
+      if (campo.labelDynamic) {
+        if (operacionActual === 'compra') {
+          labelText = monedaFiltro === 'UF' ? 'Presupuesto máximo (UF)' : 'Presupuesto máximo ($ CLP)';
+          placeholderText = monedaFiltro === 'UF' ? 'Ej: 7500' : 'Ej: 280000000';
+        } else {
+          labelText = monedaFiltro === 'CLP' ? 'Arriendo máximo ($ CLP/mes)' : 'Arriendo máximo (UF/mes)';
+          placeholderText = monedaFiltro === 'CLP' ? 'Ej: 950000' : 'Ej: 25';
+        }
+      }
+
+      if (campo.type === 'select') {
+        const optsHtml = campo.options.map(o => `<option value="${o.val}">${o.text}</option>`).join('');
+        div.innerHTML = `<label for="${campo.id}">${labelText}</label><select id="${campo.id}" onchange="ejecutarBusqueda()">${optsHtml}</select>`;
+      } else {
+        div.innerHTML = `<label for="${campo.id}">${labelText}</label><input type="number" id="${campo.id}" placeholder="${placeholderText}" oninput="ejecutarBusqueda()">`;
+      }
+      contenedor.appendChild(div);
+    });
+  }
+
+  function resetearFiltros() {
+    document.getElementById('filtroComuna').value = 'todas';
+    renderizarEspecificaciones();
+    ejecutarBusqueda();
+  }
+
+  function ejecutarBusqueda() {
+    const tipo = document.getElementById('tipoInmueble').value;
+    const comunaSel = document.getElementById('filtroComuna').value;
+
+    const m2Min = parseFloat(document.getElementById('f_m2')?.value) || 0;
+    const precioMaxInput = parseFloat(document.getElementById('f_precioMax')?.value) || Infinity;
+    const dormsMin = parseInt(document.getElementById('f_dorms')?.value) || 0;
+    const banosMin = parseInt(document.getElementById('f_banos')?.value) || 0;
+    const terrenoMin = parseFloat(document.getElementById('f_terreno')?.value) || 0;
+    const alturaMin = parseFloat(document.getElementById('f_altura')?.value) || 0;
+    const frenteMin = parseFloat(document.getElementById('f_frente')?.value) || 0;
+
+    const estacFiltro = document.getElementById('f_estac')?.value || 'indiferente';
+    const bodegaFiltro = document.getElementById('f_bodega')?.value || 'indiferente';
+    const piscinaFiltro = document.getElementById('f_piscina')?.value || 'indiferente';
+    const metroMax = parseFloat(document.getElementById('f_metroMax')?.value) || 99999;
+    const mallFiltro = document.getElementById('f_mall')?.value || 'indiferente';
+    const patenteFiltro = document.getElementById('f_patente')?.value || 'indiferente';
+
+    let filtradas = PROPIEDADES.filter(p => {
+      if (p.operacion !== operacionActual) return false;
+      if (p.tipo !== tipo) return false;
+      if (comunaSel !== 'todas' && p.comuna !== comunaSel) return false;
+
+      const precioEnMonedaActiva = convertirPrecioParaMostrar(p.precio, p.operacion);
+      if (precioEnMonedaActiva > precioMaxInput) return false;
+
+      if (tipo === 'departamento') {
+        if (p.specs.dorms < dormsMin) return false;
+        if (p.specs.banos < banosMin) return false;
+        if (p.specs.m2 < m2Min) return false;
+        if (estacFiltro === 'si' && !p.specs.estac) return false;
+        if (bodegaFiltro === 'si' && !p.specs.bodega) return false;
+      } else if (tipo === 'casa') {
+        if (p.specs.dorms < dormsMin) return false;
+        if (p.specs.m2Construidos < m2Min) return false;
+        if (p.specs.m2Terreno < terrenoMin) return false;
+        if (piscinaFiltro === 'si' && !p.specs.piscina) return false;
+      } else if (tipo === 'bodega') {
+        if (p.specs.m2 < m2Min) return false;
+        if (p.specs.altura < alturaMin) return false;
+        if (p.metroDistM > metroMax) return false;
+        if (mallFiltro === 'si' && !p.cercaComercio) return false;
+        if (patenteFiltro === 'cualquiera_vigente' && p.patenteEstado !== 'vigente') return false;
+        if (patenteFiltro !== 'indiferente' && patenteFiltro !== 'cualquiera_vigente' && p.patenteTipo !== patenteFiltro) return false;
+      } else if (tipo === 'sitio') {
+        if (p.specs.m2 < m2Min) return false;
+        if (p.specs.frente < frenteMin) return false;
+        if (p.metroDistM > metroMax) return false;
+        if (mallFiltro === 'si' && !p.cercaComercio) return false;
+        if (patenteFiltro === 'cualquiera_vigente' && p.patenteEstado !== 'vigente') return false;
+        if (patenteFiltro !== 'indiferente' && patenteFiltro !== 'cualquiera_vigente' && p.patenteTipo !== patenteFiltro) return false;
+      }
+      return true;
+    });
+
+    filtradas = filtradas.map(p => ({
+      ...p,
+      analisis: calcularDiferencialYConfiabilidad(p)
+    })).sort((a, b) => b.analisis.diffPct - a.analisis.diffPct);
+
+    const grid = document.getElementById('gridResultados');
+    const resumen = document.getElementById('resumenBusqueda');
+
+    if (filtradas.length === 0) {
+      resumen.textContent = '0 propiedades coinciden con estos filtros.';
+      grid.innerHTML = `<div class="empty-state">No hay propiedades en esta combinación exacta de filtros. Prueba ampliando el presupuesto o dejando los filtros opcionales en "Indiferente".</div>`;
+      return;
+    }
+
+    const mejor = filtradas[0];
+    resumen.textContent = `${filtradas.length} propiedad(es) encontrada(s). Mayor oportunidad en ${mejor.comuna} (${mejor.analisis.diffPct}% bajo referencia).`;
+
+    grid.innerHTML = filtradas.map(p => {
+      const { diffPct, nivel, etiqueta, explicacion } = p.analisis;
+
+      let badgeClass = 'discount-strong';
+      if (diffPct <= 3) badgeClass = 'discount-low';
+      else if (nivel === 'baja') badgeClass = 'discount-caution';
+
+      let relClass = 'rel-high';
+      if (nivel === 'media') relClass = 'rel-medium';
+      if (nivel === 'baja') relClass = 'rel-low';
+
+      const precioFmt = formatearMontoSegunFiltro(p.precio, p.operacion) + (p.operacion === 'arriendo' ? '/mes' : '');
+      const refFmt = formatearMontoSegunFiltro(p.referencia, p.operacion) + (p.operacion === 'arriendo' ? '/mes' : '');
+
+      let metricasExtraHtml = '';
+      if (p.rebajaRecientePct && p.rebajaRecientePct > 0) {
+        metricasExtraHtml += `<span class="metric-chip drop">↓ Bajó ${p.rebajaRecientePct}% recientemente</span>`;
+      }
+      metricasExtraHtml += `<span class="metric-chip">${p.diasPublicado} días publicado</span>`;
+
+      if (p.operacion === 'arriendo' && p.specs.ggcc) {
+        const totalMensualCLP = p.precio + p.specs.ggcc;
+        const totalFmt = monedaFiltro === 'CLP'
+          ? `$${totalMensualCLP.toLocaleString('es-CL')}`
+          : `${(totalMensualCLP / valorUFActual).toFixed(1)} UF`;
+        metricasExtraHtml += `<span class="metric-chip">Costo real c/GGCC: ${totalFmt}/mes</span>`;
+      }
+
+      if (p.operacion === 'compra' && p.arriendoEstimadoCLP) {
+        const precioEnCLP = p.precio * valorUFActual;
+        const capRate = (((p.arriendoEstimadoCLP * 12) / precioEnCLP) * 100).toFixed(1);
+        metricasExtraHtml += `<span class="metric-chip">Cap Rate est.: ${capRate}% anual</span>`;
+      }
+
+      let specsHtml = '';
+      if (p.tipo === 'departamento') {
+        specsHtml = `
+          <span class="spec-chip">${p.specs.dorms} Dorms</span>
+          <span class="spec-chip">${p.specs.banos} Baños</span>
+          <span class="spec-chip">${p.specs.m2} m² útiles</span>
+          <span class="spec-chip">${p.specs.estac ? 'Con Estac.' : 'Sin Estac.'}</span>
+          <span class="spec-chip">${p.specs.bodega ? 'Con Bodega' : 'Sin Bodega'}</span>
+        `;
+      } else if (p.tipo === 'casa') {
+        specsHtml = `
+          <span class="spec-chip">${p.specs.dorms} Dorms</span>
+          <span class="spec-chip">${p.specs.banos} Baños</span>
+          <span class="spec-chip">${p.specs.m2Construidos} m² const.</span>
+          <span class="spec-chip">${p.specs.m2Terreno} m² terreno</span>
+          <span class="spec-chip">${p.specs.piscina ? 'Con Piscina' : 'Sin Piscina'}</span>
+        `;
+      } else if (p.tipo === 'bodega') {
+        specsHtml = `
+          <span class="spec-chip">${p.specs.m2} m²</span>
+          <span class="spec-chip">Altura ${p.specs.altura} m</span>
+          <span class="spec-chip">Camión: ${p.specs.camion}</span>
+          <span class="spec-chip">Trifásica: ${p.specs.trifasica}</span>
+        `;
+      } else if (p.tipo === 'sitio') {
+        specsHtml = `
+          <span class="spec-chip">${p.specs.m2} m² totales</span>
+          <span class="spec-chip">Frente ${p.specs.frente} m</span>
+          <span class="spec-chip">${p.specs.zonificacion}</span>
+        `;
+      }
+
+      let patentePillHtml = '';
+      if ((p.tipo === 'bodega' || p.tipo === 'sitio') && p.patenteDetalle) {
+        const pClass = p.patenteEstado === 'vigente' ? 'patent' : 'patent-warn';
+        patentePillHtml = `<span class="conn-pill ${pClass}">📋 ${p.patenteDetalle}</span>`;
+      }
+
+      const alertaHtml = p.alertaTexto
+        ? `<div class="alert-note">⚠️ Alerta detectada: ${p.alertaTexto}</div>`
+        : '';
+
+      return `
+        <article class="prop-card">
+          <div>
+            <div class="card-top">
+              <span class="comuna-tag">${p.comuna}</span>
+              <span class="discount-badge ${badgeClass}">${diffPct}% más abajo</span>
+            </div>
+            <h4 class="prop-title">${p.titulo}</h4>
+            <p class="prop-sector">${p.sector}</p>
+
+            <div class="connectivity-strip">
+              <span class="conn-pill">🚇 ${p.metroNombre} · ${p.metroDistM} m (${p.metroMin} min)</span>
+              <span class="conn-pill mall">🛍️ ${p.mallInfo}</span>
+              ${patentePillHtml}
+            </div>
+
+            <div class="price-block">
+              <div class="price-main">${precioFmt}</div>
+              <div class="price-ref">Mediana comparable (600 m): <s>${refFmt}</s></div>
+              <div class="metrics-row">${metricasExtraHtml}</div>
+            </div>
+
+            <div class="specs-list">${specsHtml}</div>
+          </div>
+
+          <div class="reliability-box ${relClass}">
+            <span class="rel-title">${etiqueta}</span>
+            ${explicacion}
+            ${alertaHtml}
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function actualizarPlaceholderEval() {
+    const op = document.getElementById('evalOperacion').value;
+    document.getElementById('evalLabelPrecio').textContent = op === 'compra' ? 'Precio pedido (UF)' : 'Canon pedido ($ CLP / mes)';
+    document.getElementById('evalPrecio').placeholder = op === 'compra' ? 'Ej: 4950' : 'Ej: 690000';
+  }
+
+  function evaluarPropiedadUsuario() {
+    const op = document.getElementById('evalOperacion').value;
+    const comuna = document.getElementById('evalComuna').value;
+    const tipo = document.getElementById('evalTipo').value;
+    const m2 = parseFloat(document.getElementById('evalM2').value);
+    const dorms = parseInt(document.getElementById('evalDorms').value) || 0;
+    const metro = document.getElementById('evalMetro').value;
+    const mall = document.getElementById('evalMall').value;
+    const precio = parseFloat(document.getElementById('evalPrecio').value);
+
+    const box = document.getElementById('resultadoEvaluador');
+
+    if (!m2 || !precio || m2 <= 0 || precio <= 0) {
+      box.className = 'eval-result visible';
+      box.innerHTML = '<strong>Faltan datos:</strong> Por favor ingresa una superficie en m² y un precio válidos para realizar el cálculo.';
+      return;
+    }
+
+    if (op === 'compra' && precio > 200000) {
+      box.className = 'eval-result visible';
+      box.innerHTML = '<strong>Revisa la unidad ingresada:</strong> Seleccionaste <em>Venta (UF)</em>, pero el monto parece estar en pesos ($ CLP). Ingresa el valor en UF (ej. 5200) o cambia la operación a Arriendo ($ CLP).';
+      return;
+    }
+
+    if (op === 'arriendo' && precio < 20000) {
+      box.className = 'eval-result visible';
+      box.innerHTML = '<strong>Revisa la unidad ingresada:</strong> Seleccionaste <em>Arriendo ($ CLP / mes)</em>, pero el monto parece estar en UF. Ingresa el arriendo mensual en pesos (ej. 750000).';
+      return;
+    }
+
+    const tarifas = {
+      compra: {
+        Ñuñoa: { departamento: 81, casa: 79, bodega: 46, sitio: 44 },
+        Providencia: { departamento: 89, casa: 91, bodega: 53, sitio: 80 }
+      },
+      arriendo: {
+        Ñuñoa: { departamento: 11500, casa: 10900, bodega: 7600, sitio: 11000 },
+        Providencia: { departamento: 13800, casa: 11800, bodega: 8800, sitio: 11600 }
+      }
+    };
+
+    let factorDorms = dorms >= 3 ? 1.04 : 1.0;
+    let factorMetro = metro === 'cerca' ? 1.06 : (metro === 'lejos' ? 0.94 : 1.0);
+    let factorMall = mall === 'cerca' ? 1.03 : (mall === 'lejos' ? 0.97 : 1.0);
+
+    const tarifaBase = tarifas[op][comuna][tipo];
+    const valorReferencia = Math.round(m2 * tarifaBase * factorDorms * factorMetro * factorMall);
+    const diffPct = Math.round(((valorReferencia - precio) / valorReferencia) * 100);
+
+    const unidad = op === 'compra' ? 'UF' : '$ CLP/mes';
+    const refFmt = op === 'compra' ? `${valorReferencia.toLocaleString('es-CL')} UF` : `$${valorReferencia.toLocaleString('es-CL')}/mes`;
+    const precioFmt = op === 'compra' ? `${precio.toLocaleString('es-CL')} UF` : `$${precio.toLocaleString('es-CL')}/mes`;
+
+    let veredicto = '';
+    let detalleConfiabilidad = '';
+
+    if (diffPct >= 8 && diffPct <= 24) {
+      veredicto = `Oportunidad atractiva: está un ${diffPct}% más abajo de su mediana comparable ajustada por conectividad.`;
+      detalleConfiabilidad = 'Confiabilidad Alta: margen coherente para Ñuñoa/Providencia considerando cercanía a Metro y servicios.';
+    } else if (diffPct > 24) {
+      veredicto = `Descuento extremo: está un ${diffPct}% bajo la referencia estimada.`;
+      detalleConfiabilidad = 'Baja Confiabilidad / Revisar con cautela: rebaja inusualmente alta; verifica estado estructural, gastos comunes, patentes o condiciones legales.';
+    } else if (diffPct >= 1) {
+      veredicto = `Ligeramente bajo referencia (${diffPct}% más abajo).`;
+      detalleConfiabilidad = 'Confiabilidad Media: precio prácticamente en línea con la mediana del sector.';
+    } else {
+      veredicto = `Sobre valor de referencia (${Math.abs(diffPct)}% más arriba del estimado comparable).`;
+      detalleConfiabilidad = 'Sugerencia: existe margen para negociar a la baja frente a comparables cercanos.';
+    }
+
+    box.className = 'eval-result visible';
+    box.innerHTML = `
+      <div style="margin-bottom: 6px; font-size: 1rem;"><strong>${veredicto}</strong></div>
+      <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+        Precio ingresado: <strong>${precioFmt}</strong> · Mediana comparable ajustada (${comuna}, ${m2} m²): <strong>${refFmt}</strong> (${unidad})
+      </div>
+      <div style="font-size: 0.85rem; color: var(--accent-emerald); font-weight: 600;">${detalleConfiabilidad}</div>
+    `;
+  }
+
+  renderizarEspecificaciones();
+  ejecutarBusqueda();
+  cargarIndicadoresEconomicos();
+</script>
+
+</body>
+</html>
